@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { motion } from 'motion/react';
+import { AnimatePresence, motion } from 'motion/react';
 import { menuCategories, MenuCategoryKey } from '@/lib/data';
 import { cardHover, staggerChild, staggerContainer } from '@/lib/motion-config';
 
@@ -40,40 +40,50 @@ export default function Menu() {
               type="button"
               role="tab"
               aria-selected={activeTab === tab.key}
-              className={`min-h-[44px] rounded-full px-6 py-2 font-medium transition-colors ${
+              className={`relative min-h-[44px] rounded-full px-6 py-2 font-medium transition-colors ${
                 activeTab === tab.key
-                  ? 'bg-red-600 text-white'
+                  ? 'text-white'
                   : 'border-2 border-gray-300 bg-white text-gray-700 hover:border-red-600'
               }`}
               onClick={() => setActiveTab(tab.key)}
             >
+              {activeTab === tab.key && (
+                <motion.span
+                  layoutId="activeMenuTab"
+                  className="absolute inset-0 -z-10 rounded-full bg-red-600"
+                  transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                />
+              )}
               {tab.label}
             </button>
           ))}
         </div>
 
-        <motion.div
-          key={activeTab}
-          className="mt-10 grid grid-cols-1 gap-6 md:grid-cols-2"
-          {...staggerContainer}
-        >
-          {menuCategories[activeTab].map((item) => (
-            <motion.div
-              key={item.id}
-              className="card-shadow flex items-center justify-between bg-white p-6"
-              {...staggerChild}
-              {...cardHover}
-            >
-              <div>
-                <h3 className="font-semibold text-gray-900">{item.name}</h3>
-                <p className="mt-1 text-sm text-gray-600">{item.desc}</p>
-              </div>
-              <span className="ml-4 whitespace-nowrap text-lg font-bold text-red-600">
-                ${item.price.toFixed(2)}
-              </span>
-            </motion.div>
-          ))}
-        </motion.div>
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={activeTab}
+            className="mt-10 grid grid-cols-1 gap-6 md:grid-cols-2"
+            exit={{ opacity: 0, transition: { duration: 0.15, ease: 'easeIn' } }}
+            {...staggerContainer}
+          >
+            {menuCategories[activeTab].map((item) => (
+              <motion.div
+                key={item.id}
+                className="card-shadow flex items-center justify-between bg-white p-6"
+                {...staggerChild}
+                {...cardHover}
+              >
+                <div>
+                  <h3 className="font-semibold text-gray-900">{item.name}</h3>
+                  <p className="mt-1 text-sm text-gray-600">{item.desc}</p>
+                </div>
+                <span className="ml-4 whitespace-nowrap text-lg font-bold text-red-600">
+                  ${item.price.toFixed(2)}
+                </span>
+              </motion.div>
+            ))}
+          </motion.div>
+        </AnimatePresence>
       </div>
     </section>
   );

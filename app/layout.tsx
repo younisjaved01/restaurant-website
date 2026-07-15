@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Navbar from '@/components/Navbar';
+import MotionProvider from '@/components/MotionProvider';
 import './globals.css';
 
 export const metadata: Metadata = {
@@ -17,8 +18,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="bg-white text-gray-900">
-        <Navbar />
-        {children}
+        <MotionProvider>
+          <Navbar />
+          {children}
+        </MotionProvider>
       </body>
     </html>
   );

@@ -3,7 +3,12 @@
 import { useState } from 'react';
 import { AnimatePresence, motion } from 'motion/react';
 import { Menu as MenuIcon, X } from 'lucide-react';
-import { backdropVariants, mobileMenuVariants } from '@/lib/motion-config';
+import {
+  backdropVariants,
+  mobileMenuItem,
+  mobileMenuPanel,
+  navLinkHover,
+} from '@/lib/motion-config';
 
 interface NavLink {
   label: string;
@@ -31,13 +36,14 @@ export default function Navbar() {
 
         <div className="hidden items-center gap-8 md:flex">
           {navLinks.map((link) => (
-            <a
+            <motion.a
               key={link.href}
               href={link.href}
               className="font-medium text-gray-700 transition-colors hover:text-red-600"
+              {...navLinkHover}
             >
               {link.label}
-            </a>
+            </motion.a>
           ))}
         </div>
 
@@ -64,16 +70,17 @@ export default function Navbar() {
             <motion.div
               key="mobile-menu"
               className="fixed right-0 top-0 z-50 flex h-full w-64 flex-col gap-2 bg-white p-6 shadow-xl md:hidden"
-              {...mobileMenuVariants}
+              {...mobileMenuPanel}
             >
-              <button
+              <motion.button
                 type="button"
                 className="mb-4 flex min-h-[44px] min-w-[44px] items-center justify-center self-end rounded-lg text-gray-900"
                 aria-label="Close menu"
                 onClick={() => setIsOpen(false)}
+                {...mobileMenuItem}
               >
                 <X size={28} />
-              </button>
+              </motion.button>
               {navLinks.map((link) => (
                 <motion.a
                   key={link.href}
@@ -81,6 +88,7 @@ export default function Navbar() {
                   className="rounded-lg px-3 py-3 text-lg font-medium text-gray-800 hover:bg-gray-50 hover:text-red-600"
                   whileHover={{ x: 4 }}
                   onClick={() => setIsOpen(false)}
+                  {...mobileMenuItem}
                 >
                   {link.label}
                 </motion.a>

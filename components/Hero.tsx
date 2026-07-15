@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'motion/react';
-import { buttonHover, heroChild, heroContainer } from '@/lib/motion-config';
+import { buttonHover, heroChild, heroContainer, heroTitle } from '@/lib/motion-config';
 
 const heroFeatures = [
   { icon: '🍣', label: 'Freshly Made Daily' },
@@ -23,7 +23,7 @@ export default function Hero() {
       >
         <motion.h1
           className="text-4xl font-bold leading-tight md:text-5xl"
-          variants={heroChild}
+          variants={heroTitle}
         >
           Fresh Sushi. Fresh Juice. Fresh Energy.
         </motion.h1>
