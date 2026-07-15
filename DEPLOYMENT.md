@@ -71,17 +71,18 @@ CMD ["npm", "start"]
 ```
 
 ```bash
-docker build -t tanakas-sushi .
-docker run -p 3000:3000 tanakas-sushi
+docker build -t natures-brew-co .
+docker run -p 3000:3000 natures-brew-co
 ```
 
 ## Environment Variables
 
-None are required for the base deployment — the site is fully static (menu,
-testimonials, and features are hardcoded in `lib/data.ts`). If you later add
-online ordering, analytics, or a booking API, add those keys to `.env.local`
-(gitignored) and to your hosting provider's environment variable settings —
-never commit secrets to the repository.
+None are required for the base deployment — the site is fully static (menu
+and business details are in `data/menu.ts` and `data/business.ts`). If you
+connect a real contact-form backend (Formspree, Resend, etc. — see
+`components/Contact.tsx`), add its keys to `.env.local` (gitignored) and to
+your hosting provider's environment variable settings — never commit secrets
+to the repository.
 
 ## Performance Optimization
 

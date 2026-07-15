@@ -2,21 +2,99 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 138 18% 11%;
+    --card: 0 0% 100%;
+    --card-foreground: 138 18% 11%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 138 18% 11%;
+    --primary: 133 76% 36%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 138 50% 95%;
+    --secondary-foreground: 143 60% 20%;
+    --muted: 110 18% 95%;
+    --muted-foreground: 142 12% 34%;
+    --accent: 135 58% 49%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 120 15% 88%;
+    --input: 120 15% 88%;
+    --ring: 133 76% 36%;
+    --radius: 1.25rem;
+  }
+
+  .dark {
+    --background: 138 20% 8%;
+    --foreground: 110 20% 95%;
+    --card: 138 18% 11%;
+    --card-foreground: 110 20% 95%;
+    --popover: 138 18% 11%;
+    --popover-foreground: 110 20% 95%;
+    --primary: 135 58% 49%;
+    --primary-foreground: 138 20% 8%;
+    --secondary: 143 30% 18%;
+    --secondary-foreground: 138 50% 95%;
+    --muted: 143 15% 18%;
+    --muted-foreground: 110 12% 70%;
+    --accent: 133 76% 36%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 62% 40%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 143 15% 20%;
+    --input: 143 15% 20%;
+    --ring: 135 58% 49%;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background font-body text-foreground antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-heading;
+  }
+
+  :focus-visible {
+    outline: 2px solid hsl(var(--ring));
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  section[id] {
+    scroll-margin-top: 88px;
+  }
+}
+
 @layer components {
-  .btn-primary {
-    @apply inline-flex min-h-[44px] items-center justify-center rounded-lg bg-red-600 px-6 py-3 font-semibold text-white transition-colors hover:bg-red-700;
+  .container-brand {
+    @apply mx-auto w-full max-w-[1200px] px-5 sm:px-6 lg:px-8;
   }
 
-  .btn-secondary {
-    @apply inline-flex min-h-[44px] items-center justify-center rounded-lg border-2 border-gray-300 bg-white px-6 py-3 font-semibold text-gray-900 transition-colors hover:border-red-600;
-  }
-
-  .card-shadow {
-    @apply rounded-xl border border-gray-200 shadow-sm transition-shadow hover:shadow-md;
+  .section-eyebrow {
+    @apply inline-flex items-center gap-2 rounded-full bg-secondary px-4 py-1.5 text-sm font-semibold text-secondary-foreground;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
   *,
   *::before,
   *::after {
@@ -27,10 +105,19 @@
   }
 }
 
-html {
-  scroll-behavior: smooth;
+/* Lenis smooth scroll compatibility */
+html.lenis {
+  height: auto;
 }
 
-body {
-  -webkit-font-smoothing: antialiased;
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
 }

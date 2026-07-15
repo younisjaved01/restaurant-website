@@ -72,3 +72,17 @@ export const backdropVariants = {
   exit: { opacity: 0 },
   transition: { duration: 0.2 },
 };
+
+export const modalVariants = {
+  initial: { opacity: 0, y: 24, scale: 0.98 },
+  animate: { opacity: 1, y: 0, scale: 1 },
+  exit: { opacity: 0, y: 16, scale: 0.98 },
+  transition: { type: 'spring', stiffness: 340, damping: 30 } as const,
+};
+
+export const tabPanelVariants = {
+  initial: { opacity: 0, y: 8 },
+  animate: { opacity: 1, y: 0 },
+  exit: { opacity: 0, y: -8 },
+  transition: { duration: 0.25, ease: 'easeOut' } as const,
+};
